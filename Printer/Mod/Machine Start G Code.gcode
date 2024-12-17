@@ -184,8 +184,7 @@ M106 S0 ; turn off fan , too noisy
 M1002 judge_flag g29_before_print_flag
 M622 J1
     M1002 gcode_claim_action : 1
-    ; 4542elgh: Enable KAMP like feature to probe only print area
-    G29 A1 X{first_layer_print_min[0]} Y{first_layer_print_min[1]} I{first_layer_print_size[0]} J{first_layer_print_size[1]}
+    G29 A X{first_layer_print_min[0]} Y{first_layer_print_min[1]} I{first_layer_print_size[0]} J{first_layer_print_size[1]}
     M400
     M500 ; save cali data
 M623
