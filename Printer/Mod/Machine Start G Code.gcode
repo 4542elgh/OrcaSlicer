@@ -90,7 +90,7 @@ G1 E-0.5 F300
 ;G1 X80 F15000
 ;G1 X165 F15000; wipe and shake
 
-; 4542elgh - Every pass will be on the scrubber
+; 4542elgh - Every pass will be on the scrubber, this is initial loaded filament before nozzle priming sequence
 G1 X80 F15000
 G1 X95 F15000
 G1 X80 F15000
@@ -107,7 +107,7 @@ M106 P1 S0
 ;===== prepare print temperature and material end =====
 
 
-;===== wipe nozzle ===============================
+;===== wipe nozzle (nozzle priming on print bed tab) ===============================
 M1002 gcode_claim_action : 14
 M975 S1
 M106 S255
