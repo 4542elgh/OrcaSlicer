@@ -27,14 +27,15 @@ M1002 gcode_claim_action : 2
 M140 S[bed_temperature_initial_layer_single] ;set bed temp
 M190 S[bed_temperature_initial_layer_single] ;wait for bed temp
 
+
+
 ;=============turn on fans to prevent PLA jamming=================
 {if filament_type[initial_extruder]=="PLA"}
     {if (bed_temperature[initial_extruder] >45)||(bed_temperature_initial_layer[initial_extruder] >45)}
-        M106 P3 S180 ; Chamber fan to 180 (255 is max)
-    {endif} ;Prevent PLA from jamming
+    M106 P3 S180
+    {endif};Prevent PLA from jamming
 {endif}
-
-M106 P2 S100 ;turn on aux fan to cool down toolhead
+M106 P2 S100 ; turn on big fan ,to cool down toolhead
 
 ;===== prepare print temperature and material ==========
 M104 S[nozzle_temperature_initial_layer] ;set extruder temp
@@ -42,12 +43,12 @@ G91
 G0 Z10 F1200
 G90
 G28 X
-M975 S1 ;turn on
+M975 S1 ; turn on
 G1 X60 F12000
 G1 Y245
 G1 Y265 F3000
 M620 M
-M620 S[initial_extruder]A ; switch material if AMS exist
+M620 S[initial_extruder]A   ; switch material if AMS exist
     M109 S[nozzle_temperature_initial_layer]
     G1 X120 F12000
 
@@ -59,6 +60,7 @@ M620 S[initial_extruder]A ; switch material if AMS exist
     M400
 M621 S[initial_extruder]A
 M620.1 E F{filament_max_volumetric_speed[initial_extruder]/2.4053*60} T{nozzle_temperature_range_high[initial_extruder]}
+
 
 M412 S1 ; ===turn on filament runout detection===
 
@@ -78,18 +80,32 @@ M109 S{nozzle_temperature_initial_layer[initial_extruder]-20} ; drop nozzle temp
 G92 E0
 G1 E-0.5 F300
 
-G1 X70 F9000
-G1 X76 F15000
-G1 X65 F15000
-G1 X76 F15000
-G1 X65 F15000 ;shake to put down garbage
-G1 X80 F6000
+;G1 X70 F9000
+;G1 X76 F15000
+;G1 X65 F15000
+;G1 X76 F15000
+;G1 X65 F15000; shake to put down garbage
+;G1 X80 F6000
+;G1 X95 F15000
+;G1 X80 F15000
+;G1 X165 F15000; wipe and shake
+
+; 4542elgh - Every pass will be on the scrubber
+G1 X80 F15000
 G1 X95 F15000
 G1 X80 F15000
-G1 X165 F15000 ;wipe and shake
+G1 X95 F15000
+G1 X80 F15000
+G1 X95 F15000
+G1 X80 F15000
+G1 X95 F15000
+G1 X80 F15000
+G1 X165 F15000; wipe and shake
+
 M400
 M106 P1 S0
 ;===== prepare print temperature and material end =====
+
 
 ;===== wipe nozzle ===============================
 M1002 gcode_claim_action : 14
@@ -180,38 +196,43 @@ G29.2 S1 ; turn on ABL
 M106 S0 ; turn off fan , too noisy
 ;===== wipe nozzle end ================================
 
+
 ;===== bed leveling ==================================
 M1002 judge_flag g29_before_print_flag
 M622 J1
+
     M1002 gcode_claim_action : 1
-    G29 A X{first_layer_print_min[0]} Y{first_layer_print_min[1]} I{first_layer_print_size[0]} J{first_layer_print_size[1]}
+    G29 A1 X{first_layer_print_min[0]} Y{first_layer_print_min[1]} I{first_layer_print_size[0]} J{first_layer_print_size[1]}
     M400
     M500 ; save cali data
+
 M623
 ;===== bed leveling end ================================
 
 ;===== home after wipe mouth============================
 M1002 judge_flag g29_before_print_flag
 M622 J0
+
     M1002 gcode_claim_action : 13
     G28
+
 M623
 ;===== home after wipe mouth end =======================
 
 M975 S1 ; turn on vibration supression
 
+
 ;=============turn on fans to prevent PLA jamming=================
 {if filament_type[initial_extruder]=="PLA"}
     {if (bed_temperature[initial_extruder] >45)||(bed_temperature_initial_layer[initial_extruder] >45)}
-        M106 P3 S180
+    M106 P3 S180
     {endif};Prevent PLA from jamming
 {endif}
-
 M106 P2 S100 ; turn on big fan ,to cool down toolhead
+
 
 M104 S{nozzle_temperature_initial_layer[initial_extruder]} ; set extrude temp earlier, to reduce wait time
 
-; 4542elgh: Disable big buzz sound during start up
 ;===== mech mode fast check============================
 ;G1 X128 Y128 Z10 F20000
 ;M400 P200
@@ -253,12 +274,12 @@ M400
 ;===== for Textured PEI Plate , lower the nozzle as the nozzle was touching topmost of the texture when homing ==
 ;curr_bed_type={curr_bed_type}
 {if curr_bed_type=="Textured PEI Plate"}
-    G29.1 Z{-0.04} ; for Textured PEI Plate
+G29.1 Z{-0.04} ; for Textured PEI Plate
 {endif}
 ;========turn off light and wait extrude temperature =============
 M1002 gcode_claim_action : 0
 M106 S0 ; turn off fan
-M106 P2 S0 ; turn off aux fan
+M106 P2 S0 ; turn off big fan
 M106 P3 S0 ; turn off chamber fan
 
 M975 S1 ; turn on mech mode supression
