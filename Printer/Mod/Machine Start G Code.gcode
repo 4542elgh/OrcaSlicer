@@ -89,36 +89,34 @@ G1 E-0.5 F300
 ;G1 X80 F6000
 ;G1 X95 F15000
 ;G1 X80 F15000
-;G1 X165 F15000; wipe and shake
 
 G1 X80 F6000; scrubbing nozzle against scrubber in circular motion so it doesnt wear out one area only
 G1 Y255 F3000
 G1 X95 F6000
+G1 Y260 F3000
+G1 X80 F6000
 G1 Y265 F3000
+G1 X95 F6000
+G1 Y260 F3000
 G1 X80 F6000
 G1 Y255 F3000
 G1 X95 F6000
+G1 Y260 F3000
+G1 X80 F6000
 G1 Y265 F3000
+G1 X95 F6000
+G1 Y260 F3000
 G1 X80 F6000
 G1 Y255 F3000
 G1 X95 F6000
+G1 Y260 F3000
+G1 X80 F6000
 G1 Y265 F3000
+G1 X95 F6000
+G1 Y260 F3000
 G1 X80 F6000
 G1 Y255 F3000
 G1 X95 F6000
-G1 Y265 F3000
-G1 X80 F6000
-G1 Y255 F3000
-G1 X95 F6000
-G1 Y265 F3000
-G1 X80 F6000
-G1 Y255 F3000
-G1 X95 F6000
-G1 Y265 F3000
-G1 X80 F6000
-G1 Y255 F3000
-G1 X95 F6000
-G1 Y265 F3000
 ; 4542elgh - end scrubbing nozzle against scrubber
 
 G1 X165 F15000; wipe and shake
@@ -136,14 +134,14 @@ G1 Y264 F6000
 M109 S{nozzle_temperature_initial_layer[initial_extruder]-20}
 G1 X100 F18000 ; first wipe mouth
 
-; 4542elgh - wipe mouth 3 more times
-G1 X65 Y230 F18000
+; 4542elgh - wipe mouth 3 more times (this also shakes the purge chute bar so poop can go down)
+G1 X65 F18000
 G1 X100 F18000
-G1 X65 Y230 F18000
+G1 X65 F18000
 G1 X100 F18000
-G1 X65 Y230 F18000
+G1 X65 F18000
 G1 X100 F18000
-; 4542elgh - end custom wiping mouth 
+; 4542elgh - end custom wiping mouth
 
 G0 X135 Y253 F20000  ; move to exposed steel surface edge
 G28 Z P0 T300; home z with low precision,permit 300deg temperature
