@@ -1,3 +1,9 @@
+; 4542elgh - Notes
+; 1. Parking chute position X60 Y265
+; 2. Y max is 265, anything more will cause collision
+; 3. Moving toolhead Y direction away from poop chute handle should be done with X>100 so poop chute handle doesnt bind with toolhead and make a loud sound
+; 4542elgh - end
+
 M620 S[next_extruder]A
 M204 S9000
 {if toolchange_count > 1 && (z_hop_types[current_extruder] == 0 || z_hop_types[current_extruder] == 3)}
@@ -81,10 +87,12 @@ G1 E[old_retract_length_toolchange] F300
 
 {if flush_length_2 > 1}
 
-G91
-G1 X3 F12000; move aside to extrude
-G90
-M83
+; 4542elgh - This is moving the excuder X3, weird movement
+;G91
+;G1 X3 F12000; move aside to extrude
+;G90
+;M83
+; 4542elgh - end
 
 ; FLUSH_START
 G1 E{flush_length_2 * 0.18} F{new_filament_e_feedrate}
@@ -104,10 +112,12 @@ G1 E[new_retract_length_toolchange] F300
 
 {if flush_length_3 > 1}
 
-G91
-G1 X3 F12000; move aside to extrude
-G90
-M83
+; 4542elgh - This is moving the excuder X3, weird movement
+;G91
+;G1 X3 F12000; move aside to extrude
+;G90
+;M83
+; 4542elgh - end
 
 ; FLUSH_START
 G1 E{flush_length_3 * 0.18} F{new_filament_e_feedrate}
@@ -127,10 +137,12 @@ G1 E[new_retract_length_toolchange] F300
 
 {if flush_length_4 > 1}
 
-G91
-G1 X3 F12000; move aside to extrude
-G90
-M83
+; 4542elgh - This is moving the excuder X3, weird movement
+;G91
+;G1 X3 F12000; move aside to extrude
+;G90
+;M83
+; 4542elgh - end
 
 ; FLUSH_START
 G1 E{flush_length_4 * 0.18} F{new_filament_e_feedrate}
@@ -153,75 +165,78 @@ G1 E2 F{new_filament_e_feedrate} ;Compensate for filament spillage during waitin
 M400
 G92 E0
 G1 E-[new_retract_length_toolchange] F1800
-M106 P1 S255
-M400 S3
+M106 P1 S255 ; turn on toolhead fan
+M400 S3 ; wait for 3 seconds
 
-G1 X70 F5000
-G1 X90 F3000
-G1 Y255 F4000
-G1 X105 F5000
+; 4542elgh - Y265 is max, anything more will caused collision
+; This part is for wiping nozzle against wipper
+;G1 X70 F5000
+;G1 X90 F3000
+;G1 Y255 F4000
+;G1 X105 F5000
+;G1 Y265 F5000
+;G1 X70 F10000
+;G1 X100 F5000
+;G1 X70 F10000
+;G1 X100 F5000
 
-; 4542elgh - Make Nozzle go back a bit more so it is on top of wiper
-G1 Y265 F5000
-; G1 Y275 F5000 ; this caused collision, use default
+;G1 X70 F5000
+
+G1 X90 F3000 ; circular motion to disconnect the poop from toolhead 2 times
+G1 Y263
+G1 X70
+G1 Y265
+G1 X90
+G1 Y263
+G1 X70
+G1 Y265
+
+G1 X70 F10000 ; scrub against wipper 5 times
+G1 X100 F5000
+G1 X70 F10000
+G1 X100 F5000
+G1 X70 F10000
+G1 X100 F5000
+G1 X70 F10000
+G1 X100 F5000
+G1 X70 F10000
+G1 X100 F5000
 ; 4542elgh - end
-
-; 4542elgh - Wipe nozzle
-;G1 X70 F10000
-;G1 X100 F5000
-;G1 X70 F10000
-;G1 X100 F5000
-
-G1 X70 F10000
-G1 X100 F5000
-G1 X70 F10000
-G1 X100 F5000
-G1 X70 F10000
-G1 X100 F5000
-G1 X70 F10000
-G1 X100 F5000
-G1 X70 F10000
-G1 X100 F5000
-G1 X70 F10000
-G1 X100 F5000
-G1 X70 F10000
-G1 X100 F5000
-G1 X70 F10000
-G1 X100 F5000
-G1 X70 F10000
-G1 X100 F5000
-G1 X70 F10000
-G1 X100 F5000
-; 4542elgh - end of custom wipe nozzle
 
 G1 X70 F10000
 G1 X80 F15000
 
-; 4542elgh - Shake down to garbage
+; 4542elgh - shake the purge handle (x direction) to shake the garbage down
 ;G1 X60
 ;G1 X80
 ;G1 X60
 ;G1 X80 ; shake to put down garbage
+;G1 X100 F5000
 
-G1 X60
-G1 X80
-G1 X60
-G1 X80
-G1 X60
-G1 X80
-G1 X60
-G1 X80
-G1 X60
-G1 X80
-G1 X60
-G1 X80
-G1 X60
-G1 X80
-G1 X60
-G1 X80
-; 4542elgh - end of custom shake down to garbage
+G1 X50 F8000 ; shake handle bar left right 6 times
+G1 X110
+G1 X50
+G1 X110
+G1 X50
+G1 X110
+G1 X50
+G1 X110
+G1 X50
+G1 X110
+G1 X50
+G1 X150 ; move toolhead to further place so it does not bind with chute handle when moving to front
 
-G1 X100 F5000
+G1 Y240 F3000 ; make sure toolhead not binding with chute handle
+G1 X60 ; reposition toolhead to chute
+G1 Y265 ; Move toolhead front and back (y direction) to push the purge handle 4 times
+G1 Y240
+G1 Y265
+G1 Y240
+G1 Y265
+G1 Y240
+G1 Y265
+; 4542elgh - end
+
 G1 X165 F15000; wipe and shake
 G1 Y256 ; move Y to aside, prevent collision
 M400
