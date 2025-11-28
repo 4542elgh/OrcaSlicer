@@ -27,8 +27,6 @@ M1002 gcode_claim_action : 2
 M140 S[bed_temperature_initial_layer_single] ;set bed temp
 M190 S[bed_temperature_initial_layer_single] ;wait for bed temp
 
-
-
 ;=============turn on fans to prevent PLA jamming=================
 {if filament_type[initial_extruder]=="PLA"}
     {if (bed_temperature[initial_extruder] >45)||(bed_temperature_initial_layer[initial_extruder] >45)}
@@ -60,7 +58,6 @@ M620 S[initial_extruder]A   ; switch material if AMS exist
     M400
 M621 S[initial_extruder]A
 M620.1 E F{filament_max_volumetric_speed[initial_extruder]/2.4053*60} T{nozzle_temperature_range_high[initial_extruder]}
-
 
 M412 S1 ; ===turn on filament runout detection===
 
@@ -117,13 +114,12 @@ G1 Y260 F3000
 G1 X80 F6000
 G1 Y255 F3000
 G1 X95 F6000
-; 4542elgh - end scrubbing nozzle against scrubber
+; 4542elgh - end
 
 G1 X165 F15000; wipe and shake
 M400
 M106 P1 S0
 ;===== prepare print temperature and material end =====
-
 
 ;===== wipe nozzle ===============================
 M1002 gcode_claim_action : 14
@@ -134,14 +130,18 @@ G1 Y264 F6000
 M109 S{nozzle_temperature_initial_layer[initial_extruder]-20}
 G1 X100 F18000 ; first wipe mouth
 
-; 4542elgh - wipe mouth 3 more times (this also shakes the purge chute bar so poop can go down)
+; 4542elgh - wipe mouth 3 more times on scrubber (this also shakes the purge chute bar so poop can go down)
 G1 X65 F18000
 G1 X100 F18000
 G1 X65 F18000
 G1 X100 F18000
 G1 X65 F18000
 G1 X100 F18000
-; 4542elgh - end custom wiping mouth
+G1 X50 F8000 ; shake handle bar left right 3 times
+G1 X110
+G1 X50
+G1 X100
+; 4542elgh - end
 
 G0 X135 Y253 F20000  ; move to exposed steel surface edge
 G28 Z P0 T300; home z with low precision,permit 300deg temperature
@@ -223,7 +223,6 @@ G29.2 S1 ; turn on ABL
 M106 S0 ; turn off fan , too noisy
 ;===== wipe nozzle end ================================
 
-
 ;===== bed leveling ==================================
 M1002 judge_flag g29_before_print_flag
 M622 J1
@@ -248,7 +247,6 @@ M623
 
 M975 S1 ; turn on vibration supression
 
-
 ;=============turn on fans to prevent PLA jamming=================
 {if filament_type[initial_extruder]=="PLA"}
     {if (bed_temperature[initial_extruder] >45)||(bed_temperature_initial_layer[initial_extruder] >45)}
@@ -257,9 +255,9 @@ M975 S1 ; turn on vibration supression
 {endif}
 M106 P2 S100 ; turn on big fan ,to cool down toolhead
 
-
 M104 S{nozzle_temperature_initial_layer[initial_extruder]} ; set extrude temp earlier, to reduce wait time
 
+; 4542elgh - turn off mech mode (loud buzz)
 ;===== mech mode fast check============================
 ;G1 X128 Y128 Z10 F20000
 ;M400 P200
@@ -276,26 +274,38 @@ M104 S{nozzle_temperature_initial_layer[initial_extruder]} ; set extrude temp ea
 ;G1 X230 Y15
 ;G28 X ; re-home XY
 ;===== fmech mode fast check============================
+; 4542elgh - end
 
-; 4542elgh: Reduce purge line to 50mm starting from X100 to X150
 ;===== nozzle load line ===============================
 M975 S1
 G90
 M83
 T1000
-;G1 X18.0 Y1.0 Z0.8 F18000;Move to start position
-G1 X100 Y1.0 Z0.8 F18000;Move to start position
-M109 S{nozzle_temperature_initial_layer[initial_extruder]}
+
+; 4542elgh - Reduce purge line to 50mm starting from X100 to X150
+; G1 X18.0 Y1.0 Z0.8 F18000;Move to start position
+; M109 S{nozzle_temperature_initial_layer[initial_extruder]}
+; G1 Z0.2
+; G0 E2 F300
+; G0 X240 E15 F{outer_wall_volumetric_speed/(0.3*0.5)     * 60}
+; G0 Y11 E0.700 F{outer_wall_volumetric_speed/(0.3*0.5)/ 4 * 60}
+; G0 X239.5
+; G0 E0.2
+; G0 Y1.5 E0.700
+; G0 X18 E15 F{outer_wall_volumetric_speed/(0.3*0.5)     * 60}
+
+G1 X100 Y1.0 Z0.8 F18000 ;Move to start position
+M109 S{nozzle_temperature_initial_layer[initial_extruder]} ;Set extruder temperature
 G1 Z0.2
-G0 E2 F300
-;G0 X240 E15 F{outer_wall_volumetric_speed/(0.3*0.5)     * 60}
-G0 X150 E15 F{outer_wall_volumetric_speed/(0.3*0.5)     * 60}
-;G0 Y11 E0.700 F{outer_wall_volumetric_speed/(0.3*0.5)/ 4 * 60}
-;G0 X239.5
-;G0 E0.2
-G0 Y1.5 E0.700
-;G0 X18 E15 F{outer_wall_volumetric_speed/(0.3*0.5)     * 60}
-G0 X100 E15 F{outer_wall_volumetric_speed/(0.3*0.5)     * 60}
+G0 E2 F300 ;Extrude 2mm of filament
+G0 X150 E5 F{outer_wall_volumetric_speed/(0.3*0.5)     * 60} ;Move to X150 while extruding 5mm of filament
+G0 Y11 E0.700 F{outer_wall_volumetric_speed/(0.3*0.5)/4 * 60} ; Move to Y11 while extruding 0.700mm of filament
+G0 X149.5
+G0 E0.2 ;Extrude 0.2mm of filament
+G0 Y1.5 E0.700 ; Move to Y1.5 while extruding 0.700mm of filament
+G0 X100 E5 F{outer_wall_volumetric_speed/(0.3*0.5)     * 60} ;Move to X100 while extruding 5mm of filament
+; 4542elgh - end
+
 M400
 
 ;===== for Textured PEI Plate , lower the nozzle as the nozzle was touching topmost of the texture when homing ==
