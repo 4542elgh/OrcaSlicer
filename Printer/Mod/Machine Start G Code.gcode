@@ -29,7 +29,9 @@ M190 S[bed_temperature_initial_layer_single] ;wait for bed temp
 
 ;=============turn on fans to prevent PLA jamming=================
 {if filament_type[initial_extruder]=="PLA"}
-    {if (bed_temperature[initial_extruder] >45)||(bed_temperature_initial_layer[initial_extruder] >45)}
+; 4542elgh - lower threshold, since I am using frostbite plate, bed temp is lower, turn on exhaust fan at 30 (was 45)
+    {if (bed_temperature[initial_extruder] >30)||(bed_temperature_initial_layer[initial_extruder] >30)}
+; 4542elgh - end
     M106 P3 S180
     {endif};Prevent PLA from jamming
 {endif}
@@ -249,8 +251,7 @@ M975 S1 ; turn on vibration supression
 
 ;=============turn on fans to prevent PLA jamming=================
 {if filament_type[initial_extruder]=="PLA"}
-; 4542elgh - lower threshold, since I am using frostbite plate, bed temp is lower
-    ; {if (bed_temperature[initial_extruder] >45)||(bed_temperature_initial_layer[initial_extruder] >45)}
+; 4542elgh - lower threshold, since I am using frostbite plate, bed temp is lower, turn on exhaust fan at 30 (was 45)
     {if (bed_temperature[initial_extruder] >30)||(bed_temperature_initial_layer[initial_extruder] >30)}
 ; 4542elgh - end
     M106 P3 S180
