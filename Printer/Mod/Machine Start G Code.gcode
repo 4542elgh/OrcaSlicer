@@ -249,11 +249,17 @@ M975 S1 ; turn on vibration supression
 
 ;=============turn on fans to prevent PLA jamming=================
 {if filament_type[initial_extruder]=="PLA"}
-    {if (bed_temperature[initial_extruder] >45)||(bed_temperature_initial_layer[initial_extruder] >45)}
+; 4542elgh - lower threshold, since I am using frostbite plate, bed temp is lower
+    ; {if (bed_temperature[initial_extruder] >45)||(bed_temperature_initial_layer[initial_extruder] >45)}
+    {if (bed_temperature[initial_extruder] >30)||(bed_temperature_initial_layer[initial_extruder] >30)}
+; 4542elgh - end
     M106 P3 S180
     {endif};Prevent PLA from jamming
 {endif}
-M106 P2 S100 ; turn on big fan ,to cool down toolhead
+
+; 4542elgh - disable aux fan for good
+;M106 P2 S100 ; turn on big fan ,to cool down toolhead
+; 4542elgh - end
 
 M104 S{nozzle_temperature_initial_layer[initial_extruder]} ; set extrude temp earlier, to reduce wait time
 
