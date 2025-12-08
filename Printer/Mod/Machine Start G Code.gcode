@@ -89,33 +89,47 @@ G1 E-0.5 F300
 ;G1 X95 F15000
 ;G1 X80 F15000
 
-G1 X80 F6000; scrubbing nozzle against scrubber in circular motion so it doesnt wear out one area only
-G1 Y255 F3000
-G1 X95 F6000
-G1 Y260 F3000
-G1 X80 F6000
-G1 Y265 F3000
-G1 X95 F6000
-G1 Y260 F3000
-G1 X80 F6000
-G1 Y255 F3000
-G1 X95 F6000
-G1 Y260 F3000
-G1 X80 F6000
-G1 Y265 F3000
-G1 X95 F6000
-G1 Y260 F3000
-G1 X80 F6000
-G1 Y255 F3000
-G1 X95 F6000
-G1 Y260 F3000
-G1 X80 F6000
-G1 Y265 F3000
-G1 X95 F6000
-G1 Y260 F3000
-G1 X80 F6000
-G1 Y255 F3000
-G1 X95 F6000
+G1 X80 F10000; scrubbing nozzle against scrubber in circular motion so it doesnt wear out one area only
+G1 Y255
+G1 X95
+G1 Y260
+G1 X80
+G1 Y265
+G1 X95
+G1 Y260
+G1 X80
+G1 Y255
+G1 X95
+G1 Y260
+G1 X80
+G1 Y265
+G1 X95
+G1 Y260
+G1 X80
+G1 Y255
+G1 X95
+G1 Y260
+G1 X80
+G1 Y265
+G1 X95
+G1 Y260
+G1 X80
+G1 Y255
+G1 X95
+; 4542elgh - end
+
+; 4542elgh - ; Move toolhead front and back (y direction) to push the purge handle 4 times
+G1 X100 ; move toolhead to further place so it does not bind with chute handle when moving to front
+
+G1 Y240 F3000 ; make sure toolhead not binding with chute handle
+G1 X60 F10000; reposition toolhead to chute
+G1 Y265 ; Move toolhead front and back (y direction) to push the purge handle 4 times
+G1 Y255
+G1 Y265
+G1 Y255
+G1 Y265
+G1 Y255
+G1 Y265
 ; 4542elgh - end
 
 G1 X165 F15000; wipe and shake
@@ -258,9 +272,7 @@ M975 S1 ; turn on vibration supression
     {endif};Prevent PLA from jamming
 {endif}
 
-; 4542elgh - disable aux fan for good
-;M106 P2 S100 ; turn on big fan ,to cool down toolhead
-; 4542elgh - end
+M106 P2 S100 ; turn on big fan ,to cool down toolhead
 
 M104 S{nozzle_temperature_initial_layer[initial_extruder]} ; set extrude temp earlier, to reduce wait time
 
