@@ -118,20 +118,6 @@ G1 Y255
 G1 X95
 ; 4542elgh - end
 
-; 4542elgh - ; Move toolhead front and back (y direction) to push the purge handle 4 times
-G1 X100 ; move toolhead to further place so it does not bind with chute handle when moving to front
-
-G1 Y240 F3000 ; make sure toolhead not binding with chute handle
-G1 X60 F10000; reposition toolhead to chute
-G1 Y265 ; Move toolhead front and back (y direction) to push the purge handle 4 times
-G1 Y255
-G1 Y265
-G1 Y255
-G1 Y265
-G1 Y255
-G1 Y265
-; 4542elgh - end
-
 G1 X165 F15000; wipe and shake
 M400
 M106 P1 S0
@@ -157,6 +143,19 @@ G1 X50 F8000 ; shake handle bar left right 3 times
 G1 X110
 G1 X50
 G1 X100
+
+; 4542elgh - ; Move toolhead front and back (y direction) to push the purge handle 4 times
+G1 X100 ; move toolhead to further place so it does not bind with chute handle when moving to front
+
+G1 Y240 F10000 ; make sure toolhead not binding with chute handle
+G1 X60  ; reposition toolhead to chute
+G1 Y265 ; Move toolhead front and back (y direction) to push the purge handle 4 times
+G1 Y255
+G1 Y265
+G1 Y255
+G1 Y265
+G1 Y255
+G1 Y265
 ; 4542elgh - end
 
 G0 X135 Y253 F20000  ; move to exposed steel surface edge
