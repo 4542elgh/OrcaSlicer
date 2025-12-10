@@ -134,15 +134,10 @@ G1 X100 F18000 ; first wipe mouth
 
 ; 4542elgh - wipe mouth 3 more times on scrubber (this also shakes the purge chute bar so poop can go down)
 G1 X65 F18000
-G1 X100 F18000
-G1 X65 F18000
-G1 X100 F18000
-G1 X65 F18000
-G1 X100 F18000
-G1 X50 F8000 ; shake handle bar left right 3 times
-G1 X110
-G1 X50
 G1 X100
+G1 X65
+G1 X100
+G1 X65
 
 ; 4542elgh - ; Move toolhead front and back (y direction) to push the purge handle 4 times
 G1 X100 ; move toolhead to further place so it does not bind with chute handle when moving to front
