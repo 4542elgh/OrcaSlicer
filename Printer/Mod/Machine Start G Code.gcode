@@ -140,7 +140,7 @@ G1 Y264 F6000
 M109 S{nozzle_temperature_initial_layer[initial_extruder]-20}
 G1 X100 F18000 ; first wipe mouth
 
-; 4542elgh - wipe mouth 3 more times on scrubber (this also shakes the purge chute bar so poop can go down)
+; 4542elgh - wipe mouth 3 more times on scrubber
 G1 X65 F18000
 G1 X120
 G1 X65
@@ -151,7 +151,7 @@ G1 X65
 G1 X100 ; move toolhead to further place so it does not bind with chute handle when moving to front
 
 G1 Y240 F10000 ; make sure toolhead not binding with chute handle
-G1 X60  ; reposition toolhead to chute
+G1 X65  ; reposition toolhead to chute
 G1 Y265 ; Move toolhead front and back (y direction) to push the purge handle 4 times
 G1 Y255
 G1 Y265
@@ -162,15 +162,15 @@ G1 Y265
 
 G1 X100 ; Circular motion moving the purge handle 3 times
 G1 Y255
-G1 X60
+G1 X65
 G1 Y265
 G1 X100
 G1 Y255
-G1 X60
+G1 X65
 G1 Y265
 G1 X100
 G1 Y255
-G1 X60
+G1 X65
 G1 Y265
 ; 4542elgh - end
 
