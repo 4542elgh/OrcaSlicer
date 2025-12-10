@@ -118,7 +118,10 @@ G1 Y255
 G1 X95
 ; 4542elgh - end
 
-G1 X165 F15000; wipe and shake
+; 4542elgh - remove this unnecessary movement
+; G1 X165 F15000; wipe and shake
+; 4542elgh - end
+
 M400
 M106 P1 S0
 ;===== prepare print temperature and material end =====
