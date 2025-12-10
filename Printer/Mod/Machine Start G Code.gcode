@@ -75,7 +75,12 @@ M400
 M106 P1 S255
 G92 E0
 G1 E5 F300
-M109 S{nozzle_temperature_initial_layer[initial_extruder]-20} ; drop nozzle temp, make filament shink a bit
+
+; 4542elgh - change target nozzle temperature lower so the fan blow on toolhead more, this might help filament not able to break off issue
+; M109 S{nozzle_temperature_initial_layer[initial_extruder]-20} ; drop nozzle temp, make filament shink a bit
+M109 S{nozzle_temperature_initial_layer[initial_extruder]-35} ; drop nozzle temp, make filament shink a bit
+; 4542elgh - end
+
 G92 E0
 G1 E-0.5 F300
 
