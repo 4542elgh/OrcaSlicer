@@ -156,6 +156,19 @@ G1 Y255
 G1 Y265
 G1 Y255
 G1 Y265
+
+G1 X100 ; Circular motion moving the purge handle 3 times
+G1 Y255
+G1 X60
+G1 Y265
+G1 X100
+G1 Y255
+G1 X60
+G1 Y265
+G1 X100
+G1 Y255
+G1 X60
+G1 Y265
 ; 4542elgh - end
 
 G0 X135 Y253 F20000  ; move to exposed steel surface edge
