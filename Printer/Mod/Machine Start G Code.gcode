@@ -1,4 +1,4 @@
-;===== machine: P1S ========================
+;===== machine: P2S ========================
 ;===== date: 20231107 =====================
 ;===== turn on the HB fan & MC board fan =================
 M104 S75 ;set extruder temp to turn on the HB fan and prevent filament oozing from nozzle
@@ -96,31 +96,31 @@ G1 E-0.5 F300
 
 G1 X80 F10000; scrubbing nozzle against scrubber in circular motion so it doesnt wear out one area only
 G1 Y255
-G1 105
+G1 X105
 G1 Y260
 G1 X80
 G1 Y265
-G1 105
+G1 X105
 G1 Y260
 G1 X80
 G1 Y255
-G1 105
+G1 X105
 G1 Y260
 G1 X80
 G1 Y265
-G1 105
+G1 X105
 G1 Y260
 G1 X80
 G1 Y255
-G1 105
+G1 X105
 G1 Y260
 G1 X80
 G1 Y265
-G1 105
+G1 X105
 G1 Y260
 G1 X80
 G1 Y255
-G1 105
+G1 X105
 ; 4542elgh - end
 
 ; 4542elgh - remove this unnecessary movement
