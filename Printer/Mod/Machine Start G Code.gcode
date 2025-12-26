@@ -96,29 +96,29 @@ G1 E-0.5 F300
 
 G1 X80 F10000; scrubbing nozzle against scrubber in circular motion so it doesnt wear out one area only
 G1 Y255
-G1 X105
+G1 X100
 G1 Y260
-G1 X80
+G1 X70
 G1 Y265
-G1 X105
+G1 X100
 G1 Y260
-G1 X80
+G1 X70
 G1 Y255
-G1 X105
+G1 X100
 G1 Y260
-G1 X80
+G1 X70
 G1 Y265
-G1 X105
+G1 X100
 G1 Y260
-G1 X80
+G1 X70
 G1 Y255
-G1 X105
+G1 X100
 G1 Y260
-G1 X80
+G1 X70
 G1 Y265
-G1 X105
+G1 X100
 G1 Y260
-G1 X80
+G1 X70
 G1 Y255
 G1 X105
 ; 4542elgh - end
@@ -141,11 +141,11 @@ M109 S{nozzle_temperature_initial_layer[initial_extruder]-20}
 G1 X100 F18000 ; first wipe mouth
 
 ; 4542elgh - wipe mouth 3 more times on scrubber
-G1 X65 F18000
-G1 X120
-G1 X65
-G1 X120
-G1 X65
+G1 X70 F18000
+G1 X100
+G1 X70
+G1 X100
+G1 X70
 
 ; 4542elgh - ; Move toolhead front and back (y direction) to push the purge handle 4 times
 G1 X100 ; move toolhead to further place so it does not bind with chute handle when moving to front
@@ -162,15 +162,15 @@ G1 Y265
 
 G1 X100 ; Circular motion moving the purge handle 3 times
 G1 Y255
-G1 X65
+G1 X70
 G1 Y265
 G1 X100
 G1 Y255
-G1 X65
+G1 X70
 G1 Y265
 G1 X100
 G1 Y255
-G1 X65
+G1 X70
 G1 Y265
 ; 4542elgh - end
 
